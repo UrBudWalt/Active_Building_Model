@@ -1,0 +1,6 @@
+root - INFO - 14:45:53 - Successfully created the directory /Users/walt/Desktop/Work/Active_Building/scripts/Base_Build_Systems/Main_Controller/Logs/06_09_2021
+root - INFO - 14:45:53 - Server Info file found
+root - ERROR - 14:45:53 - IP error Local IP: 10.0.0.5 doesnt match stored IP: 192.168.68.102
+root - INFO - 16:42:32 - Log file check and found
+root - INFO - 16:42:32 - Server Info file found
+root - INFO - 16:42:33 - IP Local IP: 10.0.0.5 matchs stored IP: 10.0.0.5

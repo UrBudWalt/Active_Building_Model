@@ -1,0 +1,11 @@
+root - INFO - Server Info file found
+root - INFO - IP Local IP: 192.168.1.116 matchs stored IP: 192.168.1.116
+root - INFO - Server Started
+root - INFO - Server Info file found
+root - INFO - IP Local IP: 192.168.1.116 matchs stored IP: 192.168.1.116
+root - INFO - Server Started
+root - INFO - Server Info file found
+root - ERROR - IP error Local IP: 192.168.1.116 doesnt match stored IP: 12
+root - INFO - Server Started
+root - ERROR - IP error Local IP: 192.168.1.116 doesnt match stored IP: 12
+root - INFO - Server Started
