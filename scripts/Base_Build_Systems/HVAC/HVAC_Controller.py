@@ -67,7 +67,7 @@ def connection():
 
     # Mannal Update on IP and Username 
     subsystem_ID = "HVAC"
-    host = '10.0.0.10'
+    host = '10.0.0.11'
     port = 1234
     
     # Use global to allow the veriable use outside the function
@@ -96,7 +96,8 @@ def main_sensor():
             message = sensros(num)
             time.sleep(0.10)
             if not message:
-                print("Blank value")
+                print("System booting...")
+                time.sleep(0.30)
             else:
                 send_data(message)
 
@@ -149,7 +150,7 @@ def send_data(info):
 def recive_commands():
     while True:        
         try:
-            # We recive tings
+            # We recive things
             username_header = client_socket.recv(HEADER_LENGTH)
             if not len(username_header):
                 print("connction closed by the server")
