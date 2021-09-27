@@ -53,6 +53,8 @@ config = configparser.ConfigParser()
 
 subsystem_ID = "HVAC"
 
+
+
 ##################################-- Nework Setup --##################################
 ## Check conncetion status                                                          ##
 ## Request client restarts                                                          ##
@@ -67,7 +69,7 @@ def connection():
 
     # Mannal Update on IP and Username 
     subsystem_ID = "HVAC"
-    host = '10.0.0.11'
+    host = '10.0.0.10'
     port = 1234
     
     # Use global to allow the veriable use outside the function
@@ -90,15 +92,30 @@ def connection():
 ######################################################################################
 
 def main_sensor():
+    no_messages = 0 # Variable is used to count failed attempts to recive message from adrino sensors
     while True:
+        # This loop will request 1, 2, and 3 each of these corisponds with a function on the adrino to either send co2, temp, and humidity readings
         for x in range(3):
+
             num = str(x+1)
             message = sensros(num)
             time.sleep(0.10)
+
+            # Checks to see if recived message isn't blank
             if not message:
-                print("System booting...")
-                time.sleep(0.30)
+                print("Not sending messages..")
+                no_messages = no_messages + 1
+
+                # If the sensors stops reciving data for 10 rounds it will shutdown and require a restart
+                if no_messages >= 10:
+                    send_data("ERROR: Sensor has stopped sending data please check connection")
+                    break
+                else:
+                    time.sleep(0.30)
+
+            # If all is good the recived message is sent.
             else:
+                no_messages = 0
                 send_data(message)
 
 def self_manage():
@@ -147,6 +164,10 @@ def send_data(info):
         print('General error', str(e))
         sys.exit()
 
+###############################-- Recive Commands --##################################
+## Function used for reciving commands from the connected server currently not used ##
+######################################################################################
+
 def recive_commands():
     while True:        
         try:
@@ -163,11 +184,12 @@ def recive_commands():
             message_length = int(message_header.decode("utf-8").strip())
             message = client_socket.recv(message_length).decode("utf-8")
             
-            # Decryption add here
+            # Decryption add here (Implment when needed)
 
 
             print(f"{username}> {message}")
-                
+        
+        # catch errors related to the communication processs and connection.
         except IOError as e:
             if e.errno != errno.EAGAIN and e.errno != errno.EWOULDBLOCK:
                 print('Reading error', str(e))
@@ -184,6 +206,7 @@ def recive_commands():
 ###########################-- Multithreading Setup --#################################
 ## Main Setup that will be run on start up of script                                ##
 ######################################################################################
+
 # Create worker threads
 def create_workers():
     for _ in range(NUMBER_OF_THREADS):
@@ -191,7 +214,11 @@ def create_workers():
         t.daemon = True
         t.start()
 
-# Do next that is in the queue (First thread handles connections, Second Thread sends commands)                   
+# Do next that is in the queue
+# - First thread handles connections, 
+# - Second Thread collects readings sends to server) 
+# - Third Thread implements security
+         
 def work():
     while True:
         x = queue.get()
