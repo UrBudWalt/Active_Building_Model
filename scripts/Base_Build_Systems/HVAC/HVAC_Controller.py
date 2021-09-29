@@ -213,9 +213,9 @@ def create_workers():
         t.start()
 
 # Do next that is in the queue
-# - First thread handles connections, 
-# - Second Thread collects readings sends to server) 
-# - Third Thread implements security
+# - First thread handles connections  
+# - Second Thread collects readings sends to server) (main_sensor)
+# - Third Thread implements security (security_protocalls)
          
 def work():
     while True:
