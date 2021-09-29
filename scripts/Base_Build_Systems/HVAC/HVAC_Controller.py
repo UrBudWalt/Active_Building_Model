@@ -53,8 +53,6 @@ config = configparser.ConfigParser()
 
 subsystem_ID = "HVAC"
 
-
-
 ##################################-- Nework Setup --##################################
 ## Check conncetion status                                                          ##
 ## Request client restarts                                                          ##
@@ -103,8 +101,8 @@ def main_sensor():
 
             # Checks to see if recived message isn't blank
             if not message:
-                print("Not sending messages..")
                 no_messages = no_messages + 1
+                print("Not sending messages. Failure request no: " + str(no_messages))
 
                 # If the sensors stops reciving data for 10 rounds it will shutdown and require a restart
                 if no_messages >= 10:
