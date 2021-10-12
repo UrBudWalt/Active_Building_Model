@@ -131,7 +131,7 @@ def self_manage():
             sys.exit()
 
 def security_protocalls():
-    print("Hey this is where security will running")
+    print("Security not active by default")
 
 ###############################-- Client Commands --##################################
 ## Check conncetion status                                                          ##

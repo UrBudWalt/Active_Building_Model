@@ -71,6 +71,7 @@ def sensros(num):
         # Carbon dioxide detection
         if float(co2) >= 800:
             date, time = get_date()
+            print("Level of Co2 is over productive threshold starting air circulation now.")
             # Send Message layout (subsystem_ID:cal_MQ135:o2:date:time)
             message = str("Co2" + " : " + co2 + " : " + date + " : " + time)
          
@@ -84,11 +85,13 @@ def sensros(num):
         
         if float(temp) >= 24:
             date, time = get_date()
+            print("Temperature is over recomended level for effective productivity starting cooling protocall now.")
             # Start A/C
             message = str("Temp" + " : " + temp + " : " + date + " : " + time)
 
         elif float(temp) <= 21:
             date, time = get_date()
+            print("Temperature is lower than recomended level for effective productivity starting heating protocall now.")
             # Start Heating
             message = str("Temp" + " : " + temp + " : " + date + " : " + time)
 
@@ -98,11 +101,13 @@ def sensros(num):
 
         if float(hum) > 22:
             date, time = get_date()
+            print("Humidity is higher than recomended level for effective productivity starting air circulation protocall now.")
             # Start A/C
             message = str("Humidity" + " : " + hum + " : " + date + " : " + time)
 
         elif float(hum) < 18:
             date, time = get_date()
+            print("Humidity is lower than recomended level for effective productivity starting air circulation protocall now.")
             # Start Heating
             message = str("Humidity" + " : " + hum + " : " + date + " : " + time)
         
